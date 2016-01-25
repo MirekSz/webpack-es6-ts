@@ -55,7 +55,8 @@ var config = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
+        new webpack.optimize.CommonsChunkPlugin('common.js')
     ],
     resolve: {
         root: [path.resolve('../app')],

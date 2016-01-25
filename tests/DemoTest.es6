@@ -1,15 +1,10 @@
 var expect = chai.expect;
 
-import Demo from '../app/Demo';
 
 describe('Main function', function () {
 
 
     it('should fill the text fields that correspond to an answer', function () {
-        var demo = new Demo();
-        var sayHell = demo.sayHell('mire');
-        var value = 'Hello: <h1>siema mire</h1';
-        expect(sayHell).to.be.eq(value);
     });
 
     it('should select the options that correspond to an answer', function (done) {
