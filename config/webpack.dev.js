@@ -2,34 +2,75 @@ var webpack = require('webpack');
 var path = require('path');
 
 var APP_DIR = path.join(__dirname, '..', 'app');
+var TESTS_DIR = path.join(__dirname, '..', 'tests');
 
-module.exports = {
-  debug: true,
-  devtool: 'eval',
-  entry: ['webpack-hot-middleware/client', './app/index.tsx'],
-  module: {
-    preLoaders: [{
-      test: /\.tsx?$/,
-      loader: 'tslint',
-      include: APP_DIR
-    }],
-    loaders: [{
-      test: /\.tsx?$/,
-      loaders: ['babel', 'ts'],
-      include: APP_DIR
-    }]
-  },
-  output: {
-    filename: 'app.js',
-    path: path.join(__dirname, '..', 'build'),
-    publicPath: '/static/'
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
-  ],
-  resolve: {
-    root: [path.resolve('../app')],
-    extensions: ['', '.jsx', '.js', '.tsx', '.ts']
-  }
+var minified_libs = path.join(__dirname,'..', 'lib');
+
+var deps = [
+    'lodash/lodash.min.js'
+];
+
+
+var config = {
+    debug: true,
+    devtool: 'eval',
+    //entry: ['webpack-hot-middleware/client',
+    //    './app/index.es6'],
+    entry: {
+        app: ['./app/index.es6', 'webpack-hot-middleware/client'],
+        test:['./tests/TestExecutor.es6', 'webpack-hot-middleware/client']
+    },
+    module: {
+        preLoaders: [{
+            test: /\.tsx?$/,
+            loader: 'tslint',
+            include: APP_DIR
+        }],
+        loaders: [{
+            test: /\.tsx?$/,
+            loaders: ['babel', 'ts'],
+            include: APP_DIR
+        }, {
+            test: /\.es6?$/,
+            loaders: ['babel'],
+            include: [APP_DIR,TESTS_DIR]
+        }, {
+            test: /\.js?$/,
+            loaders: ['babel'],
+            include: APP_DIR
+        }, {
+            test: /\.less$/,
+            loader: "style!css!less"
+        }, {
+            test: /\.hbs/,
+            loader: "handlebars-loader",
+            include: [APP_DIR,TESTS_DIR]
+        }],
+        noParse: []
+    },
+    output: {
+        filename: '[name].js',
+        path: path.join(__dirname, '..', 'build'),
+        publicPath: '/static/'
+    },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin()
+    ],
+    resolve: {
+        root: [path.resolve('../app')],
+        extensions: ['', '.jsx', '.js', '.tsx', '.ts', '.es6'],
+        alias: {}
+    },
+    node: {
+        fs: "empty" // avoids error messages
+    }
 };
+
+
+deps.forEach(function (dep) {
+    var depPath = path.resolve(minified_libs, dep);
+    config.resolve.alias[dep.split('/')[0]] = depPath;
+    config.module.noParse.push(depPath);
+});
+module.exports=config;
