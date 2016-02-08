@@ -4,7 +4,7 @@ var path = require('path');
 var APP_DIR = path.join(__dirname, '..', 'app');
 var TESTS_DIR = path.join(__dirname, '..', 'tests');
 
-var minified_libs = path.join(__dirname,'..', 'lib');
+var minified_libs = path.join(__dirname, '..', 'lib');
 
 var deps = [
     'lodash/lodash.min.js'
@@ -18,7 +18,7 @@ var config = {
     //    './app/index.es6'],
     entry: {
         app: ['./app/index.es6', 'webpack-hot-middleware/client'],
-        test:['./tests/TestExecutor.es6', 'webpack-hot-middleware/client']
+        test: ['./tests/TestExecutor.es6', 'webpack-hot-middleware/client']
     },
     module: {
         preLoaders: [{
@@ -33,7 +33,7 @@ var config = {
         }, {
             test: /\.es6?$/,
             loaders: ['babel'],
-            include: [APP_DIR,TESTS_DIR]
+            include: [APP_DIR, TESTS_DIR]
         }, {
             test: /\.js?$/,
             loaders: ['babel'],
@@ -44,7 +44,7 @@ var config = {
         }, {
             test: /\.hbs/,
             loader: "handlebars-loader",
-            include: [APP_DIR,TESTS_DIR]
+            include: [APP_DIR, TESTS_DIR]
         }],
         noParse: []
     },
@@ -57,6 +57,7 @@ var config = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new webpack.optimize.CommonsChunkPlugin('common.js')
+//        new webpack.optimize.LimitChunkCountPlugin({maxChunks: 13, minChunkSize: 10})
     ],
     resolve: {
         root: [path.resolve('../app')],
@@ -74,4 +75,4 @@ deps.forEach(function (dep) {
     config.resolve.alias[dep.split('/')[0]] = depPath;
     config.module.noParse.push(depPath);
 });
-module.exports=config;
+module.exports = config;
