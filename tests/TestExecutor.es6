@@ -1,5 +1,5 @@
 import DemoTest from './DemoTest';
 
-describe('Main function', function() {
+describe('Main function', function () {
 
 });
