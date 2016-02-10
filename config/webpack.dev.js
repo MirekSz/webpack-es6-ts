@@ -61,7 +61,7 @@ var config = {
     ],
     resolve: {
         root: [path.resolve('../app')],
-        extensions: ['', '.jsx', '.js', '.tsx', '.ts', '.es6'],
+        extensions: ['', '.jsx', '.js', '.tsx', '.ts', '.es6', '.hbs'],
         alias: {}
     },
     node: {
