@@ -3,6 +3,7 @@ module.exports = function (config) {
     config.set({
         files: [
             // all files ending in "test"
+            './node_modules/jquery/dist/jquery.min.js',
             './node_modules/phantomjs-polyfill/bind-polyfill.js',
             './node_modules/babel-polyfill/dist/polyfill.js',
             './tests/TestExecutor.es6'
@@ -83,7 +84,6 @@ module.exports = function (config) {
             require("karma-spec-reporter"),
             require("karma-junit-reporter")
         ],
-
         browsers: ['PhantomJS']
     });
 };
