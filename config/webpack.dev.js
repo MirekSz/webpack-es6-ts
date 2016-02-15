@@ -40,7 +40,7 @@ var config = {
             include: APP_DIR
         }, {
             test: /\.less$/,
-            loader: "style!css!less"
+            loader: "style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!less-loader"
         }, {
             test: /\.hbs/,
             loader: "handlebars-loader",
