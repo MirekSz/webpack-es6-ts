@@ -1,4 +1,6 @@
 var webpack = require("webpack");
+var path = require('path');
+
 module.exports = function (config) {
     config.set({
         files: [
@@ -12,8 +14,8 @@ module.exports = function (config) {
         frameworks: ['mocha', 'chai', 'sinon'],
 
         preprocessors: {
-            './tests/**/*.es6': ['webpack', 'sourcemap'],
-            './app/**/*.es6': ['webpack', 'sourcemap']
+            './tests/**/*.es6': ['webpack'],
+            './app/**/*.es6': ['webpack']
         },
 
         reporters: ['spec', 'junit', 'coverage'],
@@ -25,12 +27,26 @@ module.exports = function (config) {
         restartOnFileChange: false,
         watch: false,
         coverageReporter: {
-            type: 'cobertura',
-            dir: 'coverage/'
+            dir: 'coverage/',
+            reporters: [
+                {type: 'html', subdir: 'html'},
+                {type: 'cobertura', subdir: ''}
+            ]
+
         },
         webpack: {
             devtool: 'inline-module-source-map',
             module: {
+                preLoaders: [
+                    {
+                        test: /\.es6?$/,
+                        exclude: [
+                            /node_modules/,
+                            /tests/
+                        ],
+                        loader: 'isparta-instrumenter-loader'
+                    }
+                ],
                 loaders: [
                     {test: /\.css$/, loader: "style!css"},
                     {
@@ -50,12 +66,7 @@ module.exports = function (config) {
                         test: /\.hbs/,
                         loader: "handlebars-loader"
                     }
-                ],
-                postLoaders: [{
-                    test: /\.es6/,
-                    exclude: /(app\/src\/tests|node_modules|bower_components)/,
-                    loader: 'istanbul-instrumenter'
-                }]
+                ]
             },
             resolve: {
                 extensions: ['', '.js', '.es6'],
@@ -84,6 +95,27 @@ module.exports = function (config) {
             require("karma-spec-reporter"),
             require("karma-junit-reporter")
         ],
-        browsers: ['PhantomJS']
+        browsers: ['PhantomJS_custom'],
+
+        // you can define custom flags
+        customLaunchers: {
+            'PhantomJS_custom': {
+                base: 'PhantomJS',
+                options: {
+                    onCallback: function (data) {
+                        if (data.type === "render") {
+                            // this function will not have the scope of karma.conf.js so we must define any global variable inside it
+                            if (window.renderId === undefined) {
+                                window.renderId = 0;
+                            }
+                            page.render(data.fname || ("screenshots/screenshot_" + (window.renderId++) + ".png"));
+                        }
+                    }
+                },
+                flags: ['--load-images=true'],
+                debug: true
+            }
+        }
+
     });
 };

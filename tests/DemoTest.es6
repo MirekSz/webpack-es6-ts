@@ -13,6 +13,9 @@ function takeScreenshot(file) {
     window.top.callPhantom(options);
 }
 
+
+import Demo from '../app/Demo';
+new Demo().sayHello()
 describe('Main function', function () {
 
 
