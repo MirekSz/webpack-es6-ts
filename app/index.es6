@@ -8,8 +8,8 @@ var obj = new Demo();
 let tableModel = new TableModel();
 tableModel.defineColumn('name');
 tableModel.defineColumn('age');
-tableModel.addRow({name: 'Jan', age: 45})
-tableModel.addRow({name: 'Marek', age: 35})
+tableModel.addRow({name: 'Jan', age: 45});
+tableModel.addRow({name: 'Marek', age: 35});
 
 let tableComponent = new TableComponent();
 tableComponent.bindWithModel(tableModel);

@@ -12,7 +12,7 @@ class Demo {
 
     sayHello() {
         this.counter++;
-        console.log('sayHello:  ' + this.counter);
+        console.log('sayHello:111  ' + this.counter);
         return this.counter;
     }
 
