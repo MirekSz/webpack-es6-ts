@@ -14,7 +14,7 @@ function takeScreenshot(file) {
 }
 
 
-import Demo from '../app/Demo';
+import Demo from './Demo';
 new Demo().sayHello();
 describe('Main function', function () {
 
@@ -23,7 +23,7 @@ describe('Main function', function () {
     });
 
     it('should select the options that correspond to an answer', function (done) {
-        require(['./lazy.es6'], function (module) {
+        require(['../tests/lazy.es6'], function (module) {
             $(document.body).append('<h1>mirek</h1>');
             window.top.callPhantom({type: 'render'});
             expect(new module.Miro().getVal()).to.be.eq(5);

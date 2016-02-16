@@ -8,7 +8,7 @@ module.exports = function (config) {
             './node_modules/jquery/dist/jquery.min.js',
             './node_modules/phantomjs-polyfill/bind-polyfill.js',
             './node_modules/babel-polyfill/dist/polyfill.js',
-            './tests/TestExecutor.es6'
+            './tests/autoDiscovery.es6'
         ],
 
         frameworks: ['mocha', 'chai', 'sinon'],

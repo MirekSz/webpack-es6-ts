@@ -1,24 +1,24 @@
 ///<reference path="../typings/jquery/jquery.d.ts"/>
 
-var template = require('./template.hbs');
+let template = require('./template.hbs');
 
 export interface RenderingSupport {
-    renderTo(element:JQuery);
-    setValue(val:string);
+    renderTo(element: JQuery);
+    setValue(val: string);
 }
 
 interface Listener {
-    onValueChange(val:string);
+    onValueChange(val: string);
 }
 export interface ListenerSubject {
-    addListener(listener:Listener);
+    addListener(listener: Listener);
 }
 
-export class InputGUI implements RenderingSupport,ListenerSubject {
-    private target:JQuery;
+export class InputGUI implements RenderingSupport, ListenerSubject {
+    private target: JQuery;
 
-    renderTo(element:JQuery|string) {
-        var target:JQuery = <JQuery>element;
+    public   renderTo(element: JQuery|string) {
+        var target: JQuery = <JQuery>element;
 
         if (element instanceof String) {
             target = $(element);
@@ -27,11 +27,11 @@ export class InputGUI implements RenderingSupport,ListenerSubject {
         $(target).html(template());
     }
 
-    setValue(val:string) {
+    public setValue(val: string) {
         $(this.target).find(':input').val(val);
     }
 
-    addListener(listener:Listener) {
+    public addListener(listener: Listener) {
         $(this.target).find(':input').keyup((e)=> {
             console.log('e: ');
             console.log(e);
@@ -42,9 +42,10 @@ export class InputGUI implements RenderingSupport,ListenerSubject {
 
 let inputGUI = new InputGUI();
 inputGUI.renderTo("#app");
-inputGUI.setValue("mirek");
+
+inputGUI.setValue('mirek');
 
 inputGUI.addListener({
-    onValueChange: (val)=> {
+    onValueChange: (val: string) => {
     }
 });
