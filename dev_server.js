@@ -10,7 +10,7 @@ var port = process.env.PORT || 3001;
 app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,
     quiet: false,
-    reload: true,
+    reload: false,
     watchOptions: {
         aggregateTimeout: 300,
         poll: 1000

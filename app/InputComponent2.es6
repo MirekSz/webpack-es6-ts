@@ -2,18 +2,6 @@
 
 import template  from './template.hbs';
 
-//export interface RenderingSupport {
-//    renderTo(element:JQuery);
-//    setValue(val:string);
-//}
-//
-//interface Listener {
-//    onValueChange(val:string);
-//}
-//export interface ListenerSubject {
-//    addListener(listener:Listener);
-//}
-
 export class InputGUI2 {
     renderTo(element) {
         var target = element;
