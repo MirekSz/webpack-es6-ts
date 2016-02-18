@@ -17,8 +17,8 @@ var config = {
     //entry: ['webpack-hot-middleware/client',
     //    './app/index.es6'],
     entry: {
-        app: ['./app/index.es6', 'webpack-hot-middleware/client'],
-        test: ['./tests/TestExecutor.es6', 'webpack-hot-middleware/client']
+        app: ['./app/index.es6', 'webpack-hot-middleware/client?reload=true'],
+        test: ['./tests/TestExecutor.es6', 'webpack-hot-middleware/client?reload=true']
     },
     module: {
         preLoaders: [{
@@ -29,6 +29,10 @@ var config = {
         loaders: [{
             test: /\.tsx?$/,
             loaders: ['babel', 'ts'],
+            include: APP_DIR
+        }, {
+            test: /\.jsx?$/,
+            loaders: ['babel'],
             include: APP_DIR
         }, {
             test: /\.es6?$/,
