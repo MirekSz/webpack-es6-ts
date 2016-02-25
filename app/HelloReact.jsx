@@ -2,8 +2,11 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 class HelloMessage extends React.Component {
+    hello(){
+        console.log(this.props.name);
+    }
     render() {
-        return <div>Hello {this.props.name}</div>;
+        return <div onClick={::this.hello}>Hello {this.props.name}</div>;
     }
 }
 
