@@ -1,5 +1,3 @@
-///<reference path="../typings/jquery/jquery.d.ts"/>
-
 import template  from './template.hbs';
 
 export class InputGUI2 {

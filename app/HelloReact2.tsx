@@ -14,5 +14,5 @@ export class App extends React.Component<IAppProps,{}> {
 
 export function show2() {
     let elementById = document.getElementById("workspaceReact2");
-    ReactDOM.render(<App name="Sebastian"/>, elementById);
+    ReactDOM.render(<App name="Sebastian" />, elementById);
 }

@@ -5,8 +5,8 @@ import css from './TableCoponent.less';
  * Created by Mirek on 2016-02-16.
  */
 class TableComponent {
-    constructor() {
 
+    constructor(id) {
     }
 
     /**
@@ -22,5 +22,10 @@ class TableComponent {
     }
 
 }
+// @flow
+function foo(x) {
+    return x * 10;
+}
+foo('Hello, world!');
 
 export default TableComponent;

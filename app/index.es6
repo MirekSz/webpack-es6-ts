@@ -1,10 +1,9 @@
-import InputComponent from './InputComponent';
-//import InputComponent2 from './InputComponent2';
 import Demo from './Demo';
 import TableComponent from './table/TableComponent';
 import TableModel from './table/TableModel';
 import {show} from './HelloReact';
 import {show2} from './HelloReact2';
+import {start} from './Funs';
 
 
 var obj = new Demo();
@@ -28,7 +27,7 @@ module.hot.accept('./Demo', function () {
 });
 show();
 show2();
-
+start();
 setInterval(function () {
     document.title = obj.sayHello();
 }, 2000);
