@@ -5,7 +5,6 @@ export function start() {
     }).then((res:string)=> {
         return res + "2";
     }).then((res:string)=> {
-        $(document.body).html(res);
         console.log(res);
     })
 }
@@ -40,7 +39,7 @@ class CustomerServiceImpl implements CustomerService<CustomerDto> {
 new CustomerServiceImpl().sayHello('mirek').then(function (data) {
     console.log('data: ');
     console.log(data);
-    console.log(data.prev);
+    console.log(JSON.stringify(data));
 });
 
 function log(target:Object, propertyKey:string, descriptor:TypedPropertyDescriptor<any>) {
