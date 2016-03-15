@@ -4,7 +4,7 @@ import TableModel from './table/TableModel';
 import {show} from './HelloReact';
 import {show2} from './HelloReact2';
 import {start} from './Funs';
-
+import {stylesjs} from './stylesjs.es6';
 
 var obj = new Demo();
 let tableModel = new TableModel();

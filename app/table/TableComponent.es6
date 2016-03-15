@@ -9,10 +9,6 @@ class TableComponent {
     constructor(id) {
     }
 
-    /**
-     *
-     * @param {TableModel}  model
-     */
     bindWithModel(model) {
         this.model = model;
     }

@@ -1,1 +1,1 @@
-require("./cos.less");
+require("./common.less");

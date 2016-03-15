@@ -1,5 +1,8 @@
+@import "../common";
+
 .important tr td {
-  color: red
+  &:extend(.pesimistic);
+  font-weight: bold;
 }
 
 :global {

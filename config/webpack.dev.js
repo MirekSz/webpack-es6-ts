@@ -44,7 +44,8 @@ var config = {
             include: APP_DIR
         }, {
             test: /\.less$/,
-            loader: "style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!less-loader"
+            loader: "style-loader!css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!less-loader",
+            include: APP_DIR
         }, {
             test: /\.hbs/,
             loader: "handlebars-loader",
@@ -65,7 +66,7 @@ var config = {
     ],
     resolve: {
         root: [path.resolve('../app')],
-        extensions: ['', '.jsx', '.js', '.tsx', '.ts', '.es6', '.hbs'],
+        extensions: ['', '.jsx', '.js', '.tsx', '.ts', '.es6', '.hbs', '.less'],
         alias: {}
     },
     node: {
