@@ -18,7 +18,7 @@ var config = {
     //    './app/index.es6'],
     entry: {
         app: ['./app/index.es6', 'webpack-hot-middleware/client?reload=true'],
-        test: ['./tests/TestExecutor.es6', 'webpack-hot-middleware/client?reload=true']
+        test: ['./tests/autoDiscovery.es6', 'webpack-hot-middleware/client?reload=true']
     },
     module: {
         preLoaders: [{

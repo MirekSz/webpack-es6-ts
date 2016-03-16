@@ -1,23 +1,14 @@
 import Demo from './Demo';
-import TableComponent from './table/TableComponent';
-import TableModel from './table/TableModel';
+import {showTable} from './table/Sample';
 import {show} from './HelloReact';
 import {show2} from './HelloReact2';
 import {start} from './Funs';
 import {stylesjs} from './stylesjs.es6';
 
 var obj = new Demo();
-let tableModel = new TableModel();
-tableModel.defineColumn('name');
-tableModel.defineColumn('age');
-tableModel.addRow({name: 'Jan', age: 45});
-tableModel.addRow({name: 'Marek', age: 35});
-
-let tableComponent = new TableComponent();
-tableComponent.bindWithModel(tableModel);
 
 
-tableComponent.renderTo($("#workspace"));
+showTable($("#workspace"));
 
 module.hot.accept('./Demo', function () {
     var DemoModule = require("./Demo").default;
@@ -31,3 +22,9 @@ start();
 setInterval(function () {
     document.title = obj.sayHello();
 }, 2000);
+
+
+require.ensure([], function (require) {
+    require("./LazyModule.es6").default.init();
+    // ...
+});

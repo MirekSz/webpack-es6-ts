@@ -24,7 +24,6 @@ describe('Main function', function () {
 
     it('should select the options that correspond to an answer', function (done) {
         require(['./lazy.es6'], function (module) {
-            $(document.body).append('<h1>mirek</h1>');
             expect(new module.Miro().getVal()).to.be.eq(5);
             done()
         });

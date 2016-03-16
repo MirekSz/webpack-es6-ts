@@ -6,22 +6,27 @@ import css from './TableCoponent.less';
  */
 class TableComponent {
 
-    constructor(id) {
+    constructor(name) {
+        this.name = name;
     }
 
     bindWithModel(model) {
         this.model = model;
+        this.model.addModelChangeListener(()=> {
+            this.reRender();
+        })
+    }
+
+    reRender() {
+        this.target.empty();
+        this.renderTo(this.target);
     }
 
     renderTo(target) {
+        this.target = target;
         target.html(template({columns: this.model.columns, rows: this.model.rows, css}));
     }
 
-}
-// @flow
-function foo(x) {
-    return x * 10;
-}
-foo('Hello, world!');
 
+}
 export default TableComponent;

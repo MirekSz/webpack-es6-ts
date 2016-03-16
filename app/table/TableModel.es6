@@ -14,14 +14,21 @@ class TableModel {
 
     /**
      *
-     * @param column
+     * @param columns
      */
-    defineColumn(column) {
-        this.columns.push(column);
+    defineColumn(...columns) {
+        this.columns = columns;
     }
 
     addRow(row) {
         this.rows.push(row);
+        if (this.changeListener) {
+            this.changeListener();
+        }
+    }
+
+    addModelChangeListener(listener) {
+        this.changeListener = listener;
     }
 
 }

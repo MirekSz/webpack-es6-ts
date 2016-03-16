@@ -2,29 +2,31 @@
 
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Mocha Tests</title>
-  <link rel="stylesheet" href="mocha.css" />
-  <style>
-     #fixture {
-      position: absolute;
-      top: -9999;
-      left: -9999;
-     };
-  </style>  
-  <script src="test-lib/jquery-1.11.2.js"></script>
-  <script src="test-lib/chai.js"></script>
-  <script src="test-lib/mocha.js"></script>
-  <script> mocha.setup('bdd');</script>
+    <meta charset="utf-8">
+    <title>Mocha Tests</title>
+    <link rel="stylesheet" href="mocha.css"/>
+    <style>
+        #fixture {
+            position: absolute;
+            top: -9999;
+            left: -9999;
+        }
+
+        ;
+    </style>
+    <script src="test-lib/jquery-1.11.2.js"></script>
+    <script src="test-lib/chai.js"></script>
+    <script src="test-lib/mocha.js"></script>
+    <script> mocha.setup('bdd');</script>
     <script src="/static/common.js"></script>
-  <script src="/static/test.js"></script>
-  <script>
-    window.onload = function() {
-         mocha.run()
-    };
-  </script>
- </head>
+    <script src="/static/test.js"></script>
+    <script>
+        window.onload = function () {
+            mocha.run()
+        };
+    </script>
+</head>
 <body>
-  <div id="mocha"></div>
+<div id="mocha"></div>
 </body>
 </html>
