@@ -10,7 +10,7 @@ describe('Table tests', function () {
 
     it('should bind with model', function () {
         let tableComponent = new TableComponent('mirek');
-        expect(tableComponent).not.be.eq(undefinsed);
+        expect(tableComponent).not.be.eq(undefined);
     });
 });
 
