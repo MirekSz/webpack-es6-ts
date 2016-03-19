@@ -1,10 +1,15 @@
 "use strict";
 import template from './template.hbs';
-import css from './TableCoponent.less';
+import styles from './TableCoponent.less';
 /**
  * Created by Mirek on 2016-02-16.
  */
 class TableComponent {
+
+    renderTo(target) {
+        this.target = target;
+        target.html(template({columns: this.model.columns, rows: this.model.rows, styles}));
+    }
 
     constructor(name) {
         this.name = name;
@@ -24,7 +29,7 @@ class TableComponent {
 
     renderTo(target) {
         this.target = target;
-        target.html(template({columns: this.model.columns, rows: this.model.rows, css}));
+        target.html(template({columns: this.model.columns, rows: this.model.rows, styles}));
     }
 
 
