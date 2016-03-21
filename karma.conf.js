@@ -8,10 +8,10 @@ module.exports = function (config) {
             './node_modules/jquery/dist/jquery.min.js',
             './node_modules/phantomjs-polyfill/bind-polyfill.js',
             './node_modules/babel-polyfill/dist/polyfill.js',
-            './tests/autoDiscovery.es6'
+            './tests/autoDiscoveryKarma.es6'
         ],
 
-        frameworks: ['mocha', 'chai', 'sinon'],
+        frameworks: ['mocha', 'chai', 'sinon','sinon-chai'],
 
         preprocessors: {
             './tests/**/*.es6': ['webpack'],
@@ -89,6 +89,7 @@ module.exports = function (config) {
             require("karma-mocha"),
             require("karma-chai"),
             require("karma-sinon"),
+            require("karma-sinon-chai"),
             require("karma-coverage"),
             require("karma-phantomjs-launcher"),
             require("karma-chrome-launcher"),

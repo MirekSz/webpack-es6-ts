@@ -41,7 +41,8 @@ describe('Component interactions Tests...', function () {
 
 
             //then
-            sinon.assert.calledOnce(spy);
+            expect(spy).to.have.been.calledOnce;
+            // sinon.assert.calledOnce(spy);
         });
         it('should invoke listener handler - by variable', function () {
             //given
@@ -50,7 +51,6 @@ describe('Component interactions Tests...', function () {
 
             //when
             eb.fire('RowSelected', eventData);
-
 
             //then
             expect(lastEventData).to.be.eq(eventData);
