@@ -4,9 +4,9 @@ import {show} from './HelloReact';
 import {show2} from './HelloReact2';
 import {start} from './Funs';
 import {stylesjs} from './stylesjs.es6';
-import ModalWindow from './jug/ModalWindow';
-import ModalWindowES6 from './jug/ModalWindowES6';
-import ModalWindowTs from './jug/ModalWindowTs';
+import ModalWindow from './jug/EventBus';
+import ModalWindowES6 from './jug/EventBusES6';
+import ModalWindowTs from './jug/EventBusTs';
 
 // var obj = new Demo();
 //

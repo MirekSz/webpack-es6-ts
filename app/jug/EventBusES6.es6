@@ -2,6 +2,7 @@ class EventBus {
     constructor() {
         this.listeners = new Set();
     }
+
     addListener(listener) {
         let contains = this.listeners.has(listener);
         if (contains) {
@@ -9,9 +10,11 @@ class EventBus {
         }
         this.listeners.add(listener);
     }
+
     removeListener(listener) {
         this.listeners.delete(listener);
     };
+
     fire(eventName, eventData) {
         for (var listener of this.listeners) {
             if (listener.eventName === eventName) {
@@ -22,8 +25,7 @@ class EventBus {
 }
 
 
-var eb = new EventBus();
-
+export var eb = new EventBus();
 
 var listener = {
     eventName: 'RowSelected', handle: (data)=> {
