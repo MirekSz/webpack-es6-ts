@@ -8,6 +8,7 @@ class EventBus<L extends Listener> {
 
     addListener(listener:L) {
         let contains = this.listeners.has(listener);
+        var any =this.listeners.size;
         if (contains) {
             throw new Error('Listener already added');
         }
