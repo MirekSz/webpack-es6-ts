@@ -1,4 +1,4 @@
-import Window from './Window';
+import Window from './TabWindow';
 import tabsRegion from './tabs-region.hbs';
 import tabDef from './tab-def.hbs';
 import tabContent from './tab-content.hbs';
@@ -8,6 +8,14 @@ function activateBootstrapTabs(id) {
         e.preventDefault();
         $(this).tab('show');
     });
+}
+
+function removeTabAndGoToFirst(element) {
+    var anchor = $(element).parent('a');
+    $(anchor.attr('href')).remove();
+
+    $(element).parent().remove(); //remove tab
+    $(".nav-tabs li").children('a').first().click(); //go to first
 }
 
 export default class WindowManager {
@@ -20,6 +28,10 @@ export default class WindowManager {
 
     init() {
         this.$sectionToManage.html(tabsRegion());
+
+        this.$tabNavs = this.$sectionToManage.find('.nav-tabs');
+        this.$tabContent = this.$sectionToManage.find('.tab-content');
+
         activateBootstrapTabs(this.idSectionToManage);
     }
 
@@ -50,33 +62,36 @@ export default class WindowManager {
     }
 
     openTab(id) {
-        var currentTabId = `#${this.idSectionToManage} a[href="#${id}"]`;
-        $(currentTabId).tab('show');
+        var currentTabLink = `#${this.idSectionToManage} a[href="#${id}"]`;
+        $(currentTabLink).tab('show');
     }
 
     addTabContent(window) {
-        this.$sectionToManage.find('.tab-content').append(tabContent(window));
+        this.$tabContent.append(tabContent(window));
 
-        var $tabContent = $(this.$sectionToManage.find('.tab-content').find('#'+window.id));
+        var $tabContent = $(this.$tabContent.find('#' + window.id));
         window.renderTo($tabContent)
     }
 
     addTabDef(window) {
-        this.$sectionToManage.find('.nav-tabs').append(tabDef(window));
+        this.$tabNavs.append(tabDef(window));
     }
 
     addCloseAction(id) {
-        var self=this;
+        var self = this;
         var closeButton = $(`#${this.idSectionToManage} a[href="#${id}"] button`);
-        closeButton.click(function () {
-            var anchor = $(this).parent('a');
-            $(anchor.attr('href')).remove();
 
-            $(this).parent().remove(); //remove tab
-            $(".nav-tabs li").children('a').first().click(); //go to first
+        closeButton.click(function () {
+            removeTabAndGoToFirst(this);
 
             var window = self.windows.get(id);
             window.dispose();
         });
+    }
+
+    dispose(){
+        for (var window of this.windows.values()) {
+            window.dispose();
+        }
     }
 }

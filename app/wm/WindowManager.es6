@@ -1,7 +1,6 @@
-import Window from './Window';
-import tabsRegion from './tabs-region.hbs';
-import tabDef from './tab-def.hbs';
-import tabContent from './tab-content.hbs';
+import Window from './TabWindow';
+import panelsRegion from './panels-region.hbs';
+import panelDef from './panel-def.hbs';
 
 
 export default class WindowManager {
@@ -9,10 +8,15 @@ export default class WindowManager {
         /**@type {jQuery} */
         this.$sectionToManage = $('#' + idSectionToManage);
         this.idSectionToManage = idSectionToManage;
-        this.windows = new Map();
+        this.windows = [];
     }
 
     init() {
+        this.$sectionToManage.html(panelsRegion());
+
+        this.$panel = this.$sectionToManage.find('.panel');
+        this.$panelsHistory = this.$sectionToManage.find('.panels_history');
+        this.$history = this.$sectionToManage.find('.history');
     }
 
     /**
@@ -20,49 +24,79 @@ export default class WindowManager {
      * @param {Window}  window
      */
     show(window) {
-        var windowId = window.id;
-        if (this.windows.has(windowId)) {
-            this.openTab(windowId);
-        } else {
-            this.windows.set(windowId, window);
-
-            this.addTabDef(window);
-            this.addTabContent(window);
-            this.openTab(windowId);
-            this.addCloseAction(windowId);
+        var currentWindow = this.currentWindow();
+        if (currentWindow) {
+            this.hideCurrentWindow();
         }
+        this.windows.push(window);
+
+        this.renderContent(window);
+        this.addCloseAction(window.id);
+
+        this.buildHistory(window);
     }
 
-    alreadyOpen(id) {
-        return this.windows.has(id);
+    buildHistory(window) {
+        this.$history.html(this.$history.html() + '/' + window.id);
     }
 
-    showExisting(id) {
-        this.openTab(id);
+    renderContent(window) {
+        this.$panel.html(panelDef(window));
+
+        var $content = this.$panel.find('.panel-body');
+        window.renderTo($content);
     }
 
-    openTab(id) {
-        var currentTabId = `#${this.idSectionToManage} a[href="#${id}"]`;
-        $(currentTabId).tab('show');
+    hideCurrentWindow() {
+        var panelToHide = this.$panel.children();
+        panelToHide.detach().appendTo(this.$panelsHistory);
     }
 
-    addTabContent(window) {
-        this.$sectionToManage.find('.tab-content').append(tabContent(window));
+    showWindow(id) {
+        var panelToShowFromHistory = this.$panelsHistory.find('#panel_' + id);
+        panelToShowFromHistory.detach().appendTo(this.$panel);
     }
 
-    addTabDef(window) {
-        this.$sectionToManage.find('.nav-tabs').append(tabDef(window));
+    currentWindow() {
+        if (this.windows.length == 0) {
+            return false;
+        }
+        return this.windows[this.windows.length - 1];
     }
 
+    removeCurrentWindow() {
+        var window = this.windows[this.windows.length - 1];
+        this.$history.html(this.$history.html().replace('/' + window.id, ''));
+
+        this.windows.splice(-1, 1);
+    }
+
+    disposeCurrentAndShowPrev() {
+        var window = this.currentWindow();
+        window.dispose();
+        this.removeCurrentWindow();
+
+        var prevWindow = this.currentWindow();
+        this.showWindow(prevWindow.id)
+    }
+
+    /**
+     * @protected
+     * @param id
+     */
     addCloseAction(id) {
-        var closeButton = $(`#${this.idSectionToManage} a[href="#${id}"] button`);
+        var self = this;
+        var closeButton = $(`#${this.idSectionToManage} .panel #panel_${id} .panel-heading button`);
         closeButton.click(function () {
-            debugger;
-            var anchor = $(this).parent('a');
-            $(anchor.attr('href')).remove();
+            $(this).closest('.panel').remove();
 
-            $(this).parent().remove(); //remove tab
-            $(".nav-tabs li").children('a').first().click(); //go to first
+            self.disposeCurrentAndShowPrev();
         });
+    }
+    dispose(){
+        for (var i = 0; i < this.windows.length; i++) {
+            var window = this.windows[i];
+            window.dispose();
+        }
     }
 }

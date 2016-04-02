@@ -9,6 +9,7 @@ export default class Window {
     }
 
     dispose() {
+        console.log('dispose '+this.id)
         this.$target.html('dispose ' + this.id)
     }
 }

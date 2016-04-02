@@ -3,7 +3,7 @@ import ModalWindowES6 from './jug/EventBusES6';
 import ModalWindowTs from './jug/EventBusTs';
 import TabWindowManager from  './wm/TabWindowManager'
 import WindowManager from  './wm/WindowManager'
-import Window from  './wm/Window'
+import Window from  './wm/TabWindow'
 // setTimeout(function () {
 //     require.ensure([], () => {
 //         var {showTable} = require('./table/Sample');
@@ -17,7 +17,7 @@ var customerWindow = new Window('CustomerWindow');
 var operatorWindow = new Window('OperatorWindow');
 var documentWindow = new Window('DocumentWindow');
 
-var windowManager = new WindowManager("windows");
+var windowManager = new TabWindowManager("windows");
 windowManager.init();
 windowManager.show(customerWindow);
 windowManager.show(operatorWindow);
