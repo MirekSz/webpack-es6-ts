@@ -1,36 +1,26 @@
-import Demo from './Demo';
-import {showTable} from './table/Sample';
-import {show} from './HelloReact';
-import {show2} from './HelloReact2';
-import {start} from './Funs';
-import {stylesjs} from './stylesjs.es6';
 import ModalWindow from './jug/EventBus';
 import ModalWindowES6 from './jug/EventBusES6';
 import ModalWindowTs from './jug/EventBusTs';
-
-// var obj = new Demo();
-//
-//
-showTable($("#workspace"));
-//
-// module.hot.accept('./Demo', function () {
-//     var DemoModule = require("./Demo").default;
-//     var old = obj.counter;
-//     obj = new DemoModule();
-//     obj.counter = old;
-// });
-// show();
-// show2();
-// start();
-// setInterval(function () {
-//     document.title = obj.sayHello();
-// }, 2000);
-//
-//
-// require.ensure([], function (require) {
-//     require("./LazyModule.es6").default.init();
-//     // ...
-// });
+import TabWindowManager from  './wm/TabWindowManager'
+import WindowManager from  './wm/WindowManager'
+import Window from  './wm/Window'
+// setTimeout(function () {
+//     require.ensure([], () => {
+//         var {showTable} = require('./table/Sample');
+//         global.showTable=showTable;
+//         showTable($("#workspace"));
+//     });
+// },5000);
 
 
+var customerWindow = new Window('CustomerWindow');
+var operatorWindow = new Window('OperatorWindow');
+var documentWindow = new Window('DocumentWindow');
+
+var windowManager = new WindowManager("windows");
+windowManager.init();
+windowManager.show(customerWindow);
+windowManager.show(operatorWindow);
+windowManager.show(documentWindow);
+windowManager.show(customerWindow);
 

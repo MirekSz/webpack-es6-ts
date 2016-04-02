@@ -1,7 +1,6 @@
 "use strict";
 import TableModel from './TableModel';
 import TableComponent from './TableComponent';
-
 export function showTable(target) {
     let tableModel = new TableModel();
     tableModel.defineColumn('id', 'name', 'age');
