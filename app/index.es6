@@ -17,7 +17,7 @@ var customerWindow = new Window('CustomerWindow');
 var operatorWindow = new Window('OperatorWindow');
 var documentWindow = new Window('DocumentWindow');
 
-var windowManager = new TabWindowManager("windows");
+var windowManager = new TabWindowManager("#windows");
 windowManager.init();
 windowManager.show(customerWindow);
 windowManager.show(operatorWindow);

@@ -1,13 +1,13 @@
 import Window from './TabWindow';
+import BaseWindowManager from './BaseWindowManager';
 import panelsRegion from './panels-region.hbs';
 import panelDef from './panel-def.hbs';
 
 
-export default class WindowManager {
-    constructor(idSectionToManage) {
-        /**@type {jQuery} */
-        this.$sectionToManage = $('#' + idSectionToManage);
-        this.idSectionToManage = idSectionToManage;
+export default class WindowManager extends  BaseWindowManager{
+    constructor(jquerySelectorToManage) {
+        super(jquerySelectorToManage);
+        /**@type {Array<BaseWindow>} */
         this.windows = [];
     }
 
@@ -40,23 +40,38 @@ export default class WindowManager {
         this.$history.html(this.$history.html() + '/' + window.id);
     }
 
+    /**
+     *
+     * @param {BaseWindow} window
+     */
     renderContent(window) {
         this.$panel.html(panelDef(window));
 
         var $content = this.$panel.find('.panel-body');
         window.renderTo($content);
+        window.visibleChange(true);
     }
 
     hideCurrentWindow() {
+        var currentWindow = this.currentWindow();
+        currentWindow.visibleChange(false);
+
         var panelToHide = this.$panel.children();
         panelToHide.detach().appendTo(this.$panelsHistory);
     }
 
     showWindow(id) {
+        var currentWindow = this.currentWindow();
+        currentWindow.visibleChange(true);
+
         var panelToShowFromHistory = this.$panelsHistory.find('#panel_' + id);
         panelToShowFromHistory.detach().appendTo(this.$panel);
     }
 
+    /**
+     *
+     * @returns {BaseWindow}
+     */
     currentWindow() {
         if (this.windows.length == 0) {
             return false;
@@ -86,17 +101,25 @@ export default class WindowManager {
      */
     addCloseAction(id) {
         var self = this;
-        var closeButton = $(`#${this.idSectionToManage} .panel #panel_${id} .panel-heading button`);
+        var closeButton = $(`${this.jquerySelectorToManage} .panel #panel_${id} .panel-heading button`);
         closeButton.click(function () {
             $(this).closest('.panel').remove();
 
             self.disposeCurrentAndShowPrev();
         });
     }
-    dispose(){
+
+    disposeImpl() {
         for (var i = 0; i < this.windows.length; i++) {
             var window = this.windows[i];
             window.dispose();
+        }
+    }
+
+    visibleChangeImpl(value) {
+        for (var i = 0; i < this.windows.length; i++) {
+            var window = this.windows[i];
+            window.visibleChange(value);
         }
     }
 }

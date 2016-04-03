@@ -1,15 +1,7 @@
-export default class Window {
+import BaseWindow from './BaseWindow';
+
+export default class Window extends BaseWindow{
     constructor(id) {
-        this.id = id;
-    }
-
-    renderTo($target) {
-        this.$target = $target;
-        $target.html('render ' + this.id)
-    }
-
-    dispose() {
-        console.log('dispose '+this.id)
-        this.$target.html('dispose ' + this.id)
+        super(id);
     }
 }

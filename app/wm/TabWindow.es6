@@ -1,15 +1,14 @@
 import WindowManager from './WindowManager';
 import Window from './Window';
-
-export default class TabWindow {
+import BaseWindow from './BaseWindow';
+export default class TabWindow extends BaseWindow{
     constructor(id) {
-        this.id = id;
+       super(id);
     }
 
-    renderTo($target) {
-        this.$target = $target;
+    renderToImpl($target) {
         $target.html(`<div id="embedded_${this.id}">Render to ${this.id}</div>`);
-        this.windowManager = new WindowManager(`embedded_${this.id}`);
+        this.windowManager = new WindowManager(`#embedded_${this.id}`);
 
         var customerWindow = new Window('CustomerWindow');
         var operatorWindow = new Window('OperatorWindow');
@@ -23,7 +22,11 @@ export default class TabWindow {
         
     }
 
-    dispose() {
+    disposeImpl() {
         this.windowManager.dispose();
+    }
+    
+    visibleChangeImpl(value) {
+        this.windowManager.visibleChange(value);
     }
 }

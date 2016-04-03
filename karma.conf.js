@@ -6,6 +6,7 @@ module.exports = function (config) {
         files: [
             // all files ending in "test"
             './node_modules/jquery/dist/jquery.min.js',
+            'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js',
             './node_modules/phantomjs-polyfill/bind-polyfill.js',
             './node_modules/babel-polyfill/dist/polyfill.js',
             './tests/autoDiscoveryKarma.es6'

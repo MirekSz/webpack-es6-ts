@@ -2,9 +2,9 @@ import Window from './TabWindow';
 import tabsRegion from './tabs-region.hbs';
 import tabDef from './tab-def.hbs';
 import tabContent from './tab-content.hbs';
-
-function activateBootstrapTabs(id) {
-    $(`#${id} .nav-tabs`).on("click", "a", function (e) {
+import BaseWindowManager from './BaseWindowManager';
+function activateBootstrapTabs(selector) {
+    $(`${selector} .nav-tabs`).on("click", "a", function (e) {
         e.preventDefault();
         $(this).tab('show');
     });
@@ -18,12 +18,17 @@ function removeTabAndGoToFirst(element) {
     $(".nav-tabs li").children('a').first().click(); //go to first
 }
 
-export default class WindowManager {
-    constructor(idSectionToManage) {
-        /**@type {jQuery} */
-        this.$sectionToManage = $('#' + idSectionToManage);
-        this.idSectionToManage = idSectionToManage;
+function focusOnTab(window, jquerySelectorToManage) {
+    var currentTabLink = `${jquerySelectorToManage} a[href="#${window.id}"]`;
+    $(currentTabLink).tab('show');
+};
+export default class WindowManager extends BaseWindowManager{
+    constructor(jquerySelectorToManage) {
+        super(jquerySelectorToManage);
+        /**@type {Map<String,BaseWindow>} */
         this.windows = new Map();
+        /**@type {Array<BaseWindow>} */
+        this.windowsInOrder = [];
     }
 
     init() {
@@ -32,7 +37,7 @@ export default class WindowManager {
         this.$tabNavs = this.$sectionToManage.find('.nav-tabs');
         this.$tabContent = this.$sectionToManage.find('.tab-content');
 
-        activateBootstrapTabs(this.idSectionToManage);
+        activateBootstrapTabs(this.jquerySelectorToManage);
     }
 
     /**
@@ -42,13 +47,13 @@ export default class WindowManager {
     show(window) {
         var windowId = window.id;
         if (this.windows.has(windowId)) {
-            this.openTab(windowId);
+            this.openTab(window, true);
         } else {
             this.windows.set(windowId, window);
 
             this.addTabDef(window);
             this.addTabContent(window);
-            this.openTab(windowId);
+            this.openTab(window);
             this.addCloseAction(windowId);
         }
     }
@@ -61,9 +66,17 @@ export default class WindowManager {
         this.openTab(id);
     }
 
-    openTab(id) {
-        var currentTabLink = `#${this.idSectionToManage} a[href="#${id}"]`;
-        $(currentTabLink).tab('show');
+    openTab(window, existing) {
+        focusOnTab(window, this.jquerySelectorToManage);
+
+        var current = this.currentWindow();
+        if (current) {
+            current.visibleChange(false);
+        }
+        if (!existing) {
+            this.windowsInOrder.push(window);
+        }
+        window.visibleChange(true);
     }
 
     addTabContent(window) {
@@ -79,19 +92,47 @@ export default class WindowManager {
 
     addCloseAction(id) {
         var self = this;
-        var closeButton = $(`#${this.idSectionToManage} a[href="#${id}"] button`);
+        var closeButton = $(`${this.jquerySelectorToManage} a[href="#${id}"] button`);
 
         closeButton.click(function () {
             removeTabAndGoToFirst(this);
-
-            var window = self.windows.get(id);
-            window.dispose();
+            self.disposeCurrentAndActivateFirst(id);
         });
     }
 
-    dispose(){
+    disposeCurrentAndActivateFirst(id) {
+        var window = this.windows.get(id);
+        window.dispose();
+
+        if (this.windowsInOrder.length > 0) {
+            this.windowsInOrder[0].visibleChange(true);
+        }
+    }
+
+    disposeImpl() {
         for (var window of this.windows.values()) {
             window.dispose();
+        }
+    }
+
+    /**
+     *
+     * @returns {Window}
+     */
+    currentWindow() {
+        var window = undefined;
+        this.windowsInOrder.forEach((element)=> {
+            if (element.visible) {
+                window = element;
+            }
+        });
+        return window;
+    }
+
+    visibleChangeImpl(value) {
+        for (var i = 0; i < this.windows.length; i++) {
+            var window = this.windows[i];
+            window.visibleChange(value);
         }
     }
 }
