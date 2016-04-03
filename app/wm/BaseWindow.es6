@@ -9,9 +9,9 @@ export default class BaseWindow{
     }
 
     dispose() {
-        console.log('dispose ' + this.id)
         this.disposed = true;
         this.disposeImpl();
+        console.log('dispose ',this)
     }
     disposeImpl(){
         this.$target.html('dispose ' + this.id)
