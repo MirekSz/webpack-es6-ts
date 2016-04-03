@@ -24,9 +24,9 @@ module.exports = function (config) {
         junitReporter: {
             outputFile: 'test-results.xml'
         },
-        singleRun: true,
+        singleRun: false,
         restartOnFileChange: false,
-        watch: false,
+        watch: true,
         coverageReporter: {
             dir: 'coverage/',
             reporters: [

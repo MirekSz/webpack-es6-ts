@@ -2,9 +2,8 @@ import WindowManager from './WindowManager';
 import Window from './Window';
 import BaseWindow from './BaseWindow';
 export default class ComposableWindow extends BaseWindow{
-    constructor(id, window) {
+    constructor(id) {
        super(id);
-        this.window = window;
 
     }
 
@@ -13,9 +12,6 @@ export default class ComposableWindow extends BaseWindow{
 
         this.windowManager = new WindowManager(`#embedded_${this.id}`);
         this.windowManager.init();
-
-        this.windowManager.show(this.window);
-
     }
 
     createWorkingDiv($target) {

@@ -16,7 +16,7 @@ import Window from  './wm/Window'
 
 var customerWindow = new Window('CustomerWindow');
 var operatorWindow = new Window('OperatorWindow');
-var composableWindow = new ComposableWindow('DocumentWindow',new Window('composibiotnCustomer'));
+var composableWindow = new ComposableWindow('DocumentWindow');
 
 var windowManager = new TabWindowManager("#windows");
 windowManager.init();
@@ -25,8 +25,8 @@ windowManager.show(operatorWindow);
 windowManager.show(composableWindow);
 windowManager.show(customerWindow);
 
-
-composableWindow.windowManager.show(new Window('composibiotnOperaotr'))
-composableWindow.windowManager.show(new Window('composibiotnDocument'))
-composableWindow.windowManager.show(new Window('composibiotnOperator'))
+composableWindow.windowManager.show(new Window('compositionCustomer'))
+composableWindow.windowManager.show(new Window('compositionOperaotr'))
+composableWindow.windowManager.show(new Window('compositionDocument'))
+composableWindow.windowManager.show(new Window('compositionOperator'))
 
