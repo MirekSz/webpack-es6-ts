@@ -1,4 +1,4 @@
-import Window from './TabWindow';
+import Window from './ComposableWindow';
 import BaseWindowManager from './BaseWindowManager';
 import panelsRegion from './panels-region.hbs';
 import panelDef from './panel-def.hbs';
@@ -21,7 +21,7 @@ export default class WindowManager extends  BaseWindowManager{
 
     /**
      *
-     * @param {Window}  window
+     * @param {ComposableWindow}  window
      */
     show(window) {
         var currentWindow = this.currentWindow();
@@ -92,7 +92,9 @@ export default class WindowManager extends  BaseWindowManager{
         this.removeCurrentWindow();
 
         var prevWindow = this.currentWindow();
-        this.showWindow(prevWindow.id)
+        if(prevWindow) {
+            this.showWindow(prevWindow.id)
+        }
     }
 
     /**

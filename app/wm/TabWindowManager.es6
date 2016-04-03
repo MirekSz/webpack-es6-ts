@@ -1,4 +1,4 @@
-import Window from './TabWindow';
+import Window from './ComposableWindow';
 import tabsRegion from './tabs-region.hbs';
 import tabDef from './tab-def.hbs';
 import tabContent from './tab-content.hbs';
@@ -42,7 +42,7 @@ export default class WindowManager extends BaseWindowManager{
 
     /**
      *
-     * @param {Window}  window
+     * @param {ComposableWindow}  window
      */
     show(window) {
         var windowId = window.id;
@@ -117,7 +117,7 @@ export default class WindowManager extends BaseWindowManager{
 
     /**
      *
-     * @returns {Window}
+     * @returns {ComposableWindow}
      */
     currentWindow() {
         var window = undefined;
