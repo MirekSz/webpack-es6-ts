@@ -1,30 +1,24 @@
 function EventBus() {
-    this.listeners = [];
+    this.listeners = new Set();
 }
 
 EventBus.prototype.addListener = function (listener) {
-    let index = this.listeners.indexOf(listener);
-    if (index !== -1) {
-        throw new Error('Listener already added');
-    }
-    this.listeners.push(listener);
+    this.listeners.add(listener);
 };
 
 EventBus.prototype.removeListener = function (listener) {
-    let index = this.listeners.indexOf(listener);
-    this.listeners.splice(index, 1);
+    this.listeners.delete(listener);
 };
 
 EventBus.prototype.fire = function (eventName, eventData) {
-    for (var i = 0; i < this.listeners.length; i++) {
-        var listener = this.listeners[i];
+    for (var listener of this.listeners) {
         if (listener.eventName === eventName) {
             listener.handle(eventData);
         }
     }
 };
 
-var eb = new EventBus();
+export var eb = new EventBus();
 
 
 var listener = {
@@ -40,5 +34,3 @@ eb.fire('RowSelected', {id: 2});
 eb.removeListener(listener);
 
 eb.fire('RowSelected', {id: 3});
-
-

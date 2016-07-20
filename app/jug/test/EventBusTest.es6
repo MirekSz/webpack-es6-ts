@@ -1,6 +1,8 @@
 var expect = chai.expect;
 
-import {eb} from '../EventBusES6';
+import {eb as es5} from '../EventBus';
+import {eb as es6} from '../EventBusES6';
+import {eb as ts} from '../EventBusTs';
 var lastEventData;
 var listener = {
     eventName: 'RowSelected', handle: (data)=> {
@@ -9,52 +11,57 @@ var listener = {
     }
 };
 describe('Component interactions Tests...', function () {
-    describe('EventBus Tests...', function () {
-        var sandbox;
-        beforeEach(function () {
-            sandbox = sinon.sandbox.create();
-        });
+        for (var subject of [{es5}, {es6}, {ts}]) {
+            let name = Object.keys(subject)[0];
+            let eb = subject[name];
+            describe('EventBus Tests...' + name, function () {
+                var sandbox;
+                beforeEach(function () {
+                    sandbox = sinon.sandbox.create();
+                });
 
-        afterEach(function () {
-            sandbox.restore();
-            eb.listeners.clear();
-        });
+                afterEach(function () {
+                    sandbox.restore();
+                    eb.listeners.clear();
+                });
 
-        it('should add listener', function () {
-            //given
-            var currentSize = eb.listeners.size;
+                it('should add listener', function () {
+                    //given
+                    var currentSize = eb.listeners.size;
 
-            //when
-            eb.addListener(listener);
+                    //when
+                    eb.addListener(listener);
 
-            //then
-            expect(eb.listeners.size).to.be.eq(currentSize + 1);
-        });
-        it('should invoke listener handler - by mock', function () {
-            //given
-            var spy = sandbox.stub(listener, 'handle');
-            eb.addListener(listener);
-            let eventData = {id: 1};
+                    //then
+                    expect(eb.listeners.size).to.be.eq(currentSize + 1);
+                });
+                it('should invoke listener handler - by mock', function () {
+                    //given
+                    var spy = sandbox.stub(listener, 'handle');
+                    eb.addListener(listener);
+                    let eventData = {id: 1};
 
-            //when
-            eb.fire('RowSelected', eventData);
+                    //when
+                    eb.fire('RowSelected', eventData);
 
 
-            //then
-            expect(spy).to.have.been.calledOnce;
-            // sinon.assert.calledOnce(spy);
-        });
-        it('should invoke listener handler - by variable', function () {
-            //given
-            eb.addListener(listener);
-            let eventData = {id: 1};
+                    //then
+                    expect(spy).to.have.been.calledOnce;
+                    // sinon.assert.calledOnce(spy);
+                });
+                it('should invoke listener handler - by variable', function () {
+                    //given
+                    eb.addListener(listener);
+                    let eventData = {id: 1};
 
-            //when
-            eb.fire('RowSelected', eventData);
+                    //when
+                    eb.fire('RowSelected', eventData);
 
-            //then
-            expect(lastEventData).to.be.eq(eventData);
-        });
-    });
-});
+                    //then
+                    expect(lastEventData).to.be.eq(eventData);
+                });
+            });
+        }
+    }
+);
 
