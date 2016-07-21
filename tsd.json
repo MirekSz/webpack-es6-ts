@@ -31,6 +31,12 @@
     },
     "superagent/superagent.d.ts": {
       "commit": "e15e4664aa43a31ef0231aa5084877351ea50457"
+    },
+    "rx/rx.d.ts": {
+      "commit": "2aa973a605d0fc7ae4ea5c32653331a819e81f71"
+    },
+    "rx/rx-lite.d.ts": {
+      "commit": "2aa973a605d0fc7ae4ea5c32653331a819e81f71"
     }
   }
 }

@@ -5,6 +5,7 @@ import TabWindowManager from  './wm/TabWindowManager'
 import WindowManager from  './wm/WindowManager'
 import ComposableWindow from  './wm/ComposableWindow'
 import Window from  './wm/Window'
+import RxF from './RxFun';
 // setTimeout(function () {
 //     require.ensure([], () => {
 //         var {showTable} = require('./table/Sample');

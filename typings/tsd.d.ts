@@ -7,3 +7,5 @@
 /// <reference path="jquery/jquery.d.ts" />
 /// <reference path="mocha/mocha.d.ts" />
 /// <reference path="superagent/superagent.d.ts" />
+/// <reference path="rx/rx-lite.d.ts" />
+/// <reference path="rx/rx.d.ts" />
