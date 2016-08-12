@@ -19,7 +19,7 @@ module.exports = function (config) {
             './app/**/*.es6': ['webpack']
         },
 
-        reporters: ['spec', 'junit', 'coverage'],
+        reporters: ['spec', 'junit', 'coverage','ubuntu'],
 
         junitReporter: {
             outputFile: 'test-results.xml'
@@ -51,6 +51,11 @@ module.exports = function (config) {
                 loaders: [
                     {test: /\.css$/, loader: "style!css"},
                     {
+                        test: /\.tsx?$/,
+                        loaders: ['babel', 'ts'],
+                        exclude: /node_modules/
+                    },
+                    {
                         test: /\.es6$/, loader: "babel", query: {
                         presets: ['es2015']
                     },
@@ -70,7 +75,7 @@ module.exports = function (config) {
                 ]
             },
             resolve: {
-                extensions: ['', '.js', '.es6'],
+                extensions: ['', '.js', '.es6','.ts'],
                 modulesDirectories: [
                     "",
                     "app",
@@ -95,6 +100,7 @@ module.exports = function (config) {
             require("karma-phantomjs-launcher"),
             require("karma-chrome-launcher"),
             require("karma-spec-reporter"),
+            require("karma-ubuntu-reporter"),
             require("karma-junit-reporter")
         ],
         browsers: ['PhantomJS_custom'],
