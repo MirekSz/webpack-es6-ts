@@ -17,7 +17,7 @@ var config = {
     //entry: ['webpack-hot-middleware/client',
     //    './app/index.es6'],
     entry: {
-        app: ['./app/index.es6', 'webpack-hot-middleware/client?reload=true'],
+        app: ['babel-polyfill','./app/index.es6', 'webpack-hot-middleware/client?reload=true'],
         test: ['./tests/autoDiscovery.es6', 'webpack-hot-middleware/client?reload=true']
     },
     module: {

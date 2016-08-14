@@ -4,7 +4,8 @@
     "module": "commonjs",
     "jsx": "preserve",
     "noEmit": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "moduleResolution": "classic"
   },
   "exclude": [
     "node_modules",

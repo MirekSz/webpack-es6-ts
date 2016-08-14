@@ -5,6 +5,7 @@ import TabWindowManager from  './wm/TabWindowManager'
 import WindowManager from  './wm/WindowManager'
 import ComposableWindow from  './wm/ComposableWindow'
 import Window from  './wm/Window'
+import UsersReader from  './UsersReader';
 import RxF from './RxFun';
 // setTimeout(function () {
 //     require.ensure([], () => {
@@ -31,3 +32,4 @@ composableWindow.windowManager.show(new Window('compositionOperaotr'))
 composableWindow.windowManager.show(new Window('compositionDocument'))
 composableWindow.windowManager.show(new Window('compositionOperator'))
 
+new UsersReader().renderTo($("#users"));
