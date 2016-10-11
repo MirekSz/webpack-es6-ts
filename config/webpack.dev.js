@@ -13,7 +13,7 @@ var deps = [
 
 var config = {
     debug: true,
-    devtool: 'cheap-module-source-map',
+    devtool: 'source-map',
     //entry: ['webpack-hot-middleware/client',
     //    './app/index.es6'],
     entry: {

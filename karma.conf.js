@@ -19,7 +19,7 @@ module.exports = function (config) {
             './app/**/*.es6': ['webpack']
         },
 
-        reporters: ['spec', 'junit', 'coverage','ubuntu'],
+        reporters: ['spec', 'junit', 'coverage'],
 
         junitReporter: {
             outputFile: 'test-results.xml'
@@ -100,7 +100,6 @@ module.exports = function (config) {
             require("karma-phantomjs-launcher"),
             require("karma-chrome-launcher"),
             require("karma-spec-reporter"),
-            require("karma-ubuntu-reporter"),
             require("karma-junit-reporter")
         ],
         browsers: ['PhantomJS_custom'],

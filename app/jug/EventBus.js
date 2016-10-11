@@ -1,7 +1,6 @@
 function EventBus() {
     this.listeners = new Set();
 }
-
 EventBus.prototype.addListener = function (listener) {
     this.listeners.add(listener);
 };

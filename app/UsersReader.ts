@@ -5,6 +5,7 @@ import * as request from 'superagent';
 export default class UsersReader{
 
      async renderTo($users: JQuery) {
+         debugger
         var users = await this.execute();
         var args:any = {users};
         var htmlString = usersTemplate(args);
